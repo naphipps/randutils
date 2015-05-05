@@ -440,8 +440,9 @@ class auto_seeded : public SeedSeq {
     template <typename T>
     static uint32_t hash(T&& value)
     {
-        return crushto32(std::hash<typename std::remove_reference<T>::type>{}(
-                             std::forward<T>(value)));
+        return crushto32(std::hash<typename std::remove_reference<
+                                    typename std::remove_cv<T>::type>::type>{}(
+                                     std::forward<T>(value)));
     }
 
     static constexpr uint32_t fnv(uint32_t hash, const char* pos)
